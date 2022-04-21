@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -33,14 +32,7 @@ func newApp(name string) *cli.App {
 	app.Usage = "min static file CDN"
 	app.Description = "Build min static CDN"
 	app.Flags = GlobalFlags
-	app.Action = func(c *cli.Context) error {
-		useEtcd := c.Bool("UseEtcd")
-		if useEtcd {
-			fmt.Println("use etcd to register service")
-		}
-		fmt.Println("")
-		return nil
-	}
+	app.Action = serverMain
 
 	return app
 }
