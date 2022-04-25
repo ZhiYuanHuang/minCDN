@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceFolder}",
-            "args": ["-UseEtcd","/home/share"]
+            "args": ["-UseEtcd","-EtcdAddress","127.0.0.1:10086","/home/share"]
         }
     ]
 }

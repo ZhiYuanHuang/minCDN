@@ -13,5 +13,13 @@ const (
 var (
 	globalOSSignalCh = make(chan os.Signal, 1)
 
+	globalMinCDNAddr = ""
+
+	globalMinCDNPort = GlobalMinCDNDefaultPort
+
 	globalHTTPServer *xhttp.Server
+
+	globalUseETCD bool
+
+	globalETCDAddress = ""
 )
