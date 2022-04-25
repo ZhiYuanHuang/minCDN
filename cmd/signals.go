@@ -41,7 +41,7 @@ func handleSignals() {
 		// case <-globalHTTPServerErrorCh:
 		// 	exit(stopProcess())
 		case osSignal := <-globalOSSignalCh:
-			log.Println("Exiting on signal: %s", strings.ToUpper(osSignal.String()))
+			log.Printf("Exiting on signal: %s\r\n", strings.ToUpper(osSignal.String()))
 			exit(stopProcess())
 		case signal := <-globalServiceSignalCh:
 			switch signal {
