@@ -2,11 +2,15 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
+
+	xhttp "github.com/ZhiYuanHuang/minCDN/internal/http"
 
 	"github.com/urfave/cli"
 )
@@ -39,4 +43,29 @@ func serverHandlCmdArgs(cts *cli.Context) {
 
 	addr := cts.GlobalString("address")
 	globalMinCDNAddr = addr
+
+	spileIndex := strings.Index(addr, ":")
+	if spileIndex != -1 && spileIndex < len(addr)-1 {
+		port := addr[spileIndex+1:]
+		globalMinCDNPort = port
+	}
+
+	handler, err := configureServerHandler()
+	if err != nil {
+		log.Fatal("unable to configure server handler")
+	}
+
+	addrs := make([]string, 0, 1)
+	addrs = append(addrs, globalMinCDNAddr)
+
+	httpServer := xhttp.NewServer(addrs).
+		UseHandler(corsHandler(handler)).
+		UseBaseContext(GlobalContext).
+		UseCustomLogger(log.New(ioutil.Discard, "", 0))
+
+	go func() {
+		globalHTTPServerErrorCh <- httpServer.Start(GlobalContext)
+	}()
+
+	setHTTPServer(httpServer)
 }

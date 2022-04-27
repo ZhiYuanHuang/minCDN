@@ -5,3 +5,5 @@ import (
 )
 
 var globalObjLayerMutex sync.RWMutex
+
+var globalObjectAPI ObjectLayer

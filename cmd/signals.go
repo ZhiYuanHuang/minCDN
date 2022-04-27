@@ -38,8 +38,8 @@ func handleSignals() {
 
 	for {
 		select {
-		// case <-globalHTTPServerErrorCh:
-		// 	exit(stopProcess())
+		case <-globalHTTPServerErrorCh:
+			exit(stopProcess())
 		case osSignal := <-globalOSSignalCh:
 			log.Printf("Exiting on signal: %s\r\n", strings.ToUpper(osSignal.String()))
 			exit(stopProcess())

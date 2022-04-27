@@ -17,7 +17,8 @@ var (
 
 	globalMinCDNPort = GlobalMinCDNDefaultPort
 
-	globalHTTPServer *xhttp.Server
+	globalHTTPServer        *xhttp.Server
+	globalHTTPServerErrorCh = make(chan error)
 
 	globalUseETCD bool
 
