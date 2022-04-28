@@ -55,7 +55,7 @@ func registerAPIRouter(router *mux.Router) {
 	}
 
 	for _, router := range routers {
-		router.Methods(http.MethodGet).Path("/designer").HandlerFunc(gz(httpTraceHdrs(api.GetImageHandle)))
+		router.Methods(http.MethodGet).Path("/designer/{object:.+}").HandlerFunc(gz(httpTraceHdrs(api.GetImageHandle)))
 	}
 
 	apiRouter.NotFoundHandler = httpTraceHdrs(errorResponseHandler)
